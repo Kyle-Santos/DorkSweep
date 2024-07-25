@@ -1,0 +1,5 @@
+API Keys,"filetype:env ""DB_PASSWORD"""
+Encryption Keys,"intext:""BEGIN RSA PRIVATE KEY"""
+Passwords,"intitle:""index of"" ""password"""
+Admin Credentials,inurl:admin intext:password
+Source Code,"intitle:""index of"" ext:git"
