@@ -1,0 +1,5 @@
+MONGODB,intitle:"Home - Mongo Express"
+POSTGRES,"index of" "postgresql.conf"
+SQLITE,intitle:index of db.sqlite3
+WORDPRESS,"START test_database" ext:log 
+MYSQL,intitle:"index of" mysql inurl:./db/
