@@ -1,0 +1,5 @@
+Server Info,ext:xml inurl:server
+Open Ports,"ext:txt ""open port"""
+Network Devices,"intitle:""index of"" ""cisco"""
+Firewall Configurations,inurl:firewall ext:conf
+IP Addresses,"inurl:ip intext:""IP Address"""
