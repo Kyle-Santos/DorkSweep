@@ -3,3 +3,27 @@ Open Ports,"ext:txt ""open port"""
 Network Devices,"intitle:""index of"" ""cisco"""
 Firewall Configurations,inurl:firewall ext:conf
 IP Addresses,"inurl:ip intext:""IP Address"""
+Koha library system,"inurl:""cgi-bin/koha"""
+SSH Private Keys,"ext:key intext:""PRIVATE KEY"""
+FrontPage Passwords,"""# -FrontPage-"" ext:pwd inurl:(service | authors | administrators | users) ""# -FrontPage-"""
+FTP username and passwords,"intitle:""Index of"" ws_ftp.ini"
+Siemens S7 series PLC controllers,"intext:""siemens"" & inurl:""/portal/portal.mwsl"""
+Apache Struts no git,"intitle:""Apache Struts 2.5"" ""index of /"" -git"
+vulnerability reports,"intitle:""Vulnerability Report"" ""Critical"" ext:pdf"
+Geoserver,"inurl:""/geoserver/ows?service=wfs"""
+NETSurveillance,"intitle:""NETSurveillance WEB"""
+Jaeger UI,"intitle:""jaeger UI"" inurl:trace"
+ZAP scan reports,"intitle:""ZAP Scanning Report"" + ""Alert Detail"""
+website vulnerability scanner report," -site:""pentest-tools.com"" intext:""Scan coverage information""
+AND ""List of tests"" ext:PDF"
+Nikto scanner report,"intitle:""Nikto Report"" ""OSVDB"""
+traefik dashboard,intitle:traefik inurl:8080/dashboard
+netdata dashboard,"intitle:""netdata dashboard"" AND intext:""Costa Tsaousis"""
+cacti monitoring devices,"intitle:""Cacti"" AND inurl:""/monitor/monitor.php"""
+Ganglia monitoring ,intitle:Host Report inurl:ganglia
+Nagios monitor data,inurl:nagios/cgi-bin/status.cgi
+Ansible files,"""ansible.log"" | ""playbook.yaml"" | "".ansible.cfg"" | ""playbook.yml"" | host.ini intitle:""index of"""
+Malware Analysis Report,"intitle:""Malware Analysis Report"""
+SharePoint Exposures,"inurl:""AllItems.aspx?FolderCTID="" ""firewall"" | ""proxy"" | ""configuration"" | ""account"""
+OpenVpn Monitoring Dashbaord,"intitle:""OpenVpn Status Monitor"""
+Test Env Logins,site:uat.* * inurl:login
