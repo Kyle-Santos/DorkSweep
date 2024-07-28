@@ -1,3 +1,4 @@
+search,query
 API Keys,"filetype:env ""DB_PASSWORD"""
 Encryption Keys,"intext:""BEGIN RSA PRIVATE KEY"""
 Passwords,"intitle:""index of"" ""password"""

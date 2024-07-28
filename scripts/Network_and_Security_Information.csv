@@ -1,3 +1,4 @@
+search,query
 Server Info,ext:xml inurl:server
 Open Ports,"ext:txt ""open port"""
 Network Devices,"intitle:""index of"" ""cisco"""
@@ -14,8 +15,7 @@ Geoserver,"inurl:""/geoserver/ows?service=wfs"""
 NETSurveillance,"intitle:""NETSurveillance WEB"""
 Jaeger UI,"intitle:""jaeger UI"" inurl:trace"
 ZAP scan reports,"intitle:""ZAP Scanning Report"" + ""Alert Detail"""
-website vulnerability scanner report," -site:""pentest-tools.com"" intext:""Scan coverage information""
-AND ""List of tests"" ext:PDF"
+website vulnerability scanner report," -site:""pentest-tools.com"" intext:""Scan coverage information"" AND ""List of tests"" ext:PDF"
 Nikto scanner report,"intitle:""Nikto Report"" ""OSVDB"""
 traefik dashboard,intitle:traefik inurl:8080/dashboard
 netdata dashboard,"intitle:""netdata dashboard"" AND intext:""Costa Tsaousis"""

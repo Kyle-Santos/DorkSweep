@@ -1,0 +1,13 @@
+search,query
+mongodb,intitle:"Home - Mongo Express"
+POSTGRES,"index of" "postgresql.conf"
+SQLITE,intitle:index of db.sqlite3
+wordpress,"START test_database" ext:log 
+MYSQL,intitle:"index of" mysql inurl:./db/
+oracle,intitle:"index of" "tnsnames.ora"
+redis,filetype:conf "redis"
+cassandra,intitle:"index of" "cassandra.yaml"
+elasticsearch,filetype:yml "elasticsearch"
+mariadb,intitle:"index of" "my.cnf"
+firebase,intitle:"index of" "firebase"
+hadoop,intitle:"index of" "core-site.xml"
