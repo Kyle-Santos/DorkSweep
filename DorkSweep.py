@@ -3,6 +3,23 @@ from bs4 import BeautifulSoup
 import time
 from urllib.parse import urlparse
 import csv
+import random
+
+# user-agents
+user_agents = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0',
+    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+]
+
+# Accept-Language headers
+accept_languages = [
+    'en-US,en;q=0.9',
+    'en-GB,en;q=0.9',
+    'en-CA,en;q=0.9',
+    'en-AU,en;q=0.9',
+]
 
 # COLORS
 RED = '\033[31m'
@@ -13,6 +30,19 @@ RESET = '\033[0m'
 script_dir = "scripts/"
 categories = ["Database", "Network_and_Security_Information", "Technical_Information", "Web_Vulnerability"]
 data_auto = {} # Initialize an empty dictionary to store the CSV data
+
+
+# Randomize Header
+def get_random_headers():
+    headers = {
+        'User-Agent': random.choice(user_agents),
+        'Accept-Language': random.choice(accept_languages),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+    }
+    return headers
+
 
 # Load CSVs
 def load_data(): 
@@ -118,21 +148,17 @@ def get_input(cont=""):
 
 
 # Function to perform Google Dorking
-def google_dork(query, num_results=30, proxy=None):
+def google_dork(query, num_results=30):
     total = 0
-
-    # Initialize Header
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-        'Method': 'GET'
-    }
     
+    headers = get_random_headers()
+
     search_url = f"https://www.google.com/search?q={query}&num={num_results}"
-    proxies = {'http': proxy, 'https': proxy} if proxy else None
-    response = requests.get(search_url, headers=headers, proxies=proxies)
+    response = requests.get(search_url, headers=headers)
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
+        print(soup)
         results = []
         for div in soup.find_all('div'):
             try:
@@ -189,17 +215,16 @@ def auto_dork():
             case 'set':
                 print()
                 category = user_input[1].lower()
-                while True:
-                    if category in ['db', 'database']:
-                        category_selected(f"Database")
-                    elif category in ['vw', 'Vulnerable_Websites']:
-                        category_selected(f"Vulnerable Websites")
-                    if category in ['ns', 'network_and_security_information']:
-                        category_selected(f"Network_and_Security_Information")
-                    if category in ['ti', 'technical_information']:
-                        category_selected(f"Technical_Information")
-                    else:
-                        print("\nNo such category. (Type show to see available categories)\n")
+                if category in ['db', 'database']:
+                    category_selected(f"Database")
+                elif category in ['vw', 'Vulnerable_Websites']:
+                    category_selected(f"Vulnerable Websites")
+                elif category in ['ns', 'network_and_security_information']:
+                    category_selected(f"Network_and_Security_Information")
+                elif category in ['ti', 'technical_information']:
+                    category_selected(f"Technical_Information")
+                else:
+                    print("\nNo such category. (Type show to see available categories)\n")
             case _:
                 print("\nNo such command. (Type help to see available commands)\n")
 
