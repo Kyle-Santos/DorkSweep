@@ -1,4 +1,4 @@
-search,query
+isearch,query
 mongodb,intitle:"Home - Mongo Express"
 POSTGRES,"index of" "postgresql.conf"
 SQLITE,intitle:index of db.sqlite3
@@ -11,7 +11,7 @@ elasticsearch,filetype:yml "elasticsearch"
 mariadb,intitle:"index of" "my.cnf"
 firebase,intitle:"index of" "firebase"
 hadoop,intitle:"index of" "core-site.xml"
-Edu Site XLS File Access,site:.edu filetype:xls "root" database
-Website Database Index,intitle:"Index of /databases"
-SQL Files,intitle:"index of" "database.sql"
-XLS/XLSX Files,ext:xlsx inurl:database
+edusite,site:.edu filetype:xls "root" database
+websitedb,intitle:"Index of /databases"
+sqlfiles,intitle:"index of" "database.sql"
+xlsxfiles,ext:xlsx inurl:database
