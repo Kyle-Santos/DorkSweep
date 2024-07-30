@@ -147,18 +147,9 @@ def get_input(cont=""):
 
 
 
-# Function to perform Google Dorking
-def google_dork(query, num_results=30):
-    total = 0
-    
-    headers = get_random_headers()
-
-    search_url = f"https://www.google.com/search?q={query}&num={num_results}"
-    response = requests.get(search_url, headers=headers)
-    
+def extract_results(response):
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        print(soup)
         results = []
         for div in soup.find_all('div'):
             try:
@@ -167,7 +158,7 @@ def google_dork(query, num_results=30):
                 for link in links:
                     href = link['href']
                     
-                    # Validate the link if its not a directory or irrelevant
+                    # Validate the link if it's not a directory or irrelevant
                     if href and not href.startswith('/'):
                         parsed_url = urlparse(href)
                         if parsed_url.scheme and parsed_url.netloc:
@@ -180,10 +171,42 @@ def google_dork(query, num_results=30):
     else:
         return None
 
+def google_dork(query, num_results=10):
+    headers = get_random_headers()
+    search_url = f"https://www.google.com/search?q={query}&num={num_results}"
+    response = requests.get(search_url, headers=headers)
+    return extract_results(response)
+
+def bing_dork(query, num_results=10):
+    headers = get_random_headers()
+    search_url = f"https://www.bing.com/search?q={query}&count={num_results}"
+    response = requests.get(search_url, headers=headers)
+    return extract_results(response)
+
+def duckduckgo_dork(query, num_results=10):
+    headers = get_random_headers()
+    search_url = f"https://duckduckgo.com/html/?q={query}&num={num_results}"
+    response = requests.get(search_url, headers=headers)
+    return extract_results(response)
+
+def yahoo_dork(query, num_results=10):
+    headers = get_random_headers()
+    search_url = f"https://search.yahoo.com/search?p={query}&n={num_results}"
+    response = requests.get(search_url, headers=headers)
+    return extract_results(response)
+
+def aggregate_dork(query, num_results=10):
+    results = []
+    results.extend(google_dork(query, num_results))
+    results.extend(bing_dork(query, num_results))
+    results.extend(duckduckgo_dork(query, num_results))
+    results.extend(yahoo_dork(query, num_results))
+    return results
+
 
 # Function to handle dork search and result printing
 def dork_sweep(dork):
-    results = google_dork(dork)
+    results = aggregate_dork(dork)
     if results:
         print(f"\nResults for dork: {dork}\n")
         for result in results:
