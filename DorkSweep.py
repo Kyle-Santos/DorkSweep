@@ -142,7 +142,8 @@ CATEGORIES FOR AUTOMATED DSWEEP:
 def print_queries(category):
     row = 1
     even = False
-    print(f"\nQueries for {category.replace("_", " ").upper()}\n")
+    categ = category.replace("_", " ").upper()
+    print(f"\nQueries for {categ}\n")
     # Print the scripts of a category
     for search, query in data_auto[category].items():
         if even:
@@ -292,8 +293,9 @@ def auto_dork():
 
 def category_selected(category):
     query = ""
+    categ = category.replace("_", " ").upper()
     while True:
-        user_query = get_input(f" Auto({category.replace("_", " ")})").split(" ")
+        user_query = get_input(f" Auto({categ})").split(" ")
         match user_query[0]:
             case 'list':
                 print_queries(category)
