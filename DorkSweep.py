@@ -32,6 +32,8 @@ irrelevant = ["Settings", "Privacy", "Terms", "Travel",
               "About this page", "Suggestions", "Past week",
               "Privacy and Cookies"]
 
+num_results = 20
+
 # COLORS
 RED = '\033[31m'
 GREEN = '\033[92m'
@@ -196,31 +198,31 @@ def extract_results(response):
     else:
         return []
 
-def google_dork(query, num_results=10):
+def google_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://www.google.com/search?q={query}&num={num_results}"
     response = requests.get(search_url, headers=headers)
     return extract_results(response)
 
-def bing_dork(query, num_results=10):
+def bing_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://www.bing.com/search?q={query}&count={num_results}"
     response = requests.get(search_url, headers=headers)
     return extract_results(response)
 
-def duckduckgo_dork(query, num_results=10):
+def duckduckgo_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://duckduckgo.com/html/?q={query}&num={num_results}"
     response = requests.get(search_url, headers=headers)
     return extract_results(response)
 
-def yahoo_dork(query, num_results=10):
+def yahoo_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://search.yahoo.com/search?p={query}&n={num_results}"
     response = requests.get(search_url, headers=headers)
     return extract_results(response)
 
-def aggregate_dork(query, num_results=10):
+def aggregate_dork(query, num_results=num_results):
     results = []
     results.extend(google_dork(query, num_results))
     results.extend(bing_dork(query, num_results))
