@@ -1,4 +1,4 @@
-isearch,query
+search,query
 mongodb,intitle:"Home - Mongo Express"
 POSTGRES,"index of" "postgresql.conf"
 SQLITE,intitle:index of db.sqlite3

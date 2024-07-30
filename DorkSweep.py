@@ -151,6 +151,8 @@ def extract_results(response):
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         results = []
+        position = 1
+        seen_links = []
         for div in soup.find_all('div'):
             try:
                 # Find all anchor tags within each div
@@ -159,12 +161,23 @@ def extract_results(response):
                     href = link['href']
                     
                     # Validate the link if it's not a directory or irrelevant
-                    if href and not href.startswith('/'):
+                    if href and not href.startswith('/') and href not in seen_links:
                         parsed_url = urlparse(href)
                         if parsed_url.scheme and parsed_url.netloc:
                             # Try to get the title
                             title = link.get_text(strip=True) if link.get_text(strip=True) else "No title"
-                            results.append({'title': title, 'link': href})
+                            snippet = div.get_text(strip=True) if div.get_text(strip=True) else "No snippet"
+                            domain = parsed_url.netloc
+                            results.append({
+                                'position': position,
+                                'title': title,
+                                'link': href,
+                                'snippet': snippet,
+                                'domain': domain,
+                                'search_engine': response.url
+                            })
+                            seen_links.append(href)
+                            position += 1
             except:
                 pass
         return results
@@ -213,7 +226,17 @@ def dork_sweep(dork):
             print(f"Title: {result['title']}")
             print(f"Link: {result['link']}")
         print()
+        print("==============================\n")
+        print(f"Total: {len(results)}\n")
+        print("==============================\n")
         time.sleep(2)  # To avoid getting blocked by Google
+
+        # Save results to CSV
+        with open('dork_results.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'snippet', 'domain', 'search_engine'])
+            writer.writeheader()
+            for result in results:
+                writer.writerow(result)
     else:
         print(f"No results found or an error occurred for dork: {dork}")
 
