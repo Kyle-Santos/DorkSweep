@@ -21,6 +21,17 @@ accept_languages = [
     'en-AU,en;q=0.9',
 ]
 
+# list for removing irrelevant results
+irrelevant = ["Settings", "Privacy", "Terms", "Travel", 
+              "Hotels", "Legal", "Advertise", "Help", 
+              "Yahoo", "Home", "Mail", "News", "Finance",
+              "Fantasy", "Sports", "Shopping", "Weather",
+              "Lifestyle", "Sign In", "Images", "Videos",
+              "News", "Local", "Past day", "Past month",
+              "Privacy", "Privacy Dashboard", "About ads", 
+              "About this page", "Suggestions", "Past week",
+              "Privacy and Cookies"]
+
 # COLORS
 RED = '\033[31m'
 GREEN = '\033[92m'
@@ -159,20 +170,21 @@ def extract_results(response):
                 links = div.find_all('a', href=True)
                 for link in links:
                     href = link['href']
+
+                    # Try to get the title
+                    title = link.get_text(strip=True) if link.get_text(strip=True) else "No title"
                     
                     # Validate the link if it's not a directory or irrelevant
-                    if href and not href.startswith('/') and href not in seen_links:
+                    if href and not href.startswith('/') and href not in seen_links and title not in irrelevant:
                         parsed_url = urlparse(href)
                         if parsed_url.scheme and parsed_url.netloc:
-                            # Try to get the title
-                            title = link.get_text(strip=True) if link.get_text(strip=True) else "No title"
-                            snippet = div.get_text(strip=True) if div.get_text(strip=True) else "No snippet"
+                            # snippet = div.get_text(strip=True) if div.get_text(strip=True) else "No snippet"
                             domain = parsed_url.netloc
                             results.append({
                                 'position': position,
                                 'title': title,
                                 'link': href,
-                                'snippet': snippet,
+                                # 'snippet': snippet,
                                 'domain': domain,
                                 'search_engine': response.url
                             })
@@ -182,7 +194,7 @@ def extract_results(response):
                 pass
         return results
     else:
-        return None
+        return []
 
 def google_dork(query, num_results=10):
     headers = get_random_headers()
@@ -233,7 +245,8 @@ def dork_sweep(dork):
 
         # Save results to CSV
         with open('dork_results.csv', mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'snippet', 'domain', 'search_engine'])
+            # writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'snippet', 'domain', 'search_engine'])
+            writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'domain', 'search_engine'])
             writer.writeheader()
             for result in results:
                 writer.writerow(result)
