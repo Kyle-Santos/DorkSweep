@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import time
 from urllib.parse import urlparse
 import csv
+import concurrent.futures
 import random
 
 # user-agents
@@ -225,10 +226,22 @@ def yahoo_dork(query, num_results=num_results):
 
 def aggregate_dork(query, num_results=num_results):
     results = []
-    results.extend(google_dork(query, num_results))
-    results.extend(bing_dork(query, num_results))
-    results.extend(duckduckgo_dork(query, num_results))
-    results.extend(yahoo_dork(query, num_results))
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [
+            executor.submit(google_dork, query, num_results),
+            executor.submit(bing_dork, query, num_results),
+            executor.submit(duckduckgo_dork, query, num_results),
+            executor.submit(yahoo_dork, query, num_results)
+        ]
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                data = future.result()
+                if data:
+                    results.extend(data)
+            except Exception as exc:
+                print(f"An exception occurred: {exc}")
+
     return results
 
 
