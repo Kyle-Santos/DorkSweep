@@ -261,8 +261,8 @@ def dork_sweep(dork):
 
         # Save results to CSV
         with open('dork_results.csv', mode='w', newline='', encoding='utf-8') as file:
-            # writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'snippet', 'domain', 'search_engine'])
-            writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'domain', 'search_engine'])
+            # writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'snippet', 'domain', 'search_query'])
+            writer = csv.DictWriter(file, fieldnames=['position', 'title', 'link', 'domain', 'search_query'])
             writer.writeheader()
             for result in results:
                 writer.writerow(result)

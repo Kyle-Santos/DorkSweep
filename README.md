@@ -17,8 +17,8 @@ This project is a comprehensive tool for performing Google Dorking across multip
 
 1. Clone the repository:
 ```bash
-git clone <repository_url>
-cd <repository_directory>
+git clone https://github.com/Kyle-Santos/DorkSweep.git
+cd DorkSweep
 ```
 2. Install the required dependencies:
 ```bash
@@ -88,7 +88,7 @@ The search results are saved to a CSV file dork_results.csv with the following h
 - title: Title of the result.
 - link: Link to the result.
 - domain: Domain of the result.
-- search_engine: The search engine used to find the result.
+- search_query: The search url/query used to find the result.
 
 ## Notes
 - Use the tool responsibly and adhere to the legal and ethical guidelines for web scraping and data usage.
