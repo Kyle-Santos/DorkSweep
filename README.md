@@ -32,7 +32,7 @@ pip install -r requirements.txt
 1. Run the Tool:
 
 ```bash
-python dorking_tool.py
+python DorkSweep.py
 ```
 
 2. Commands:
@@ -93,3 +93,68 @@ The search results are saved to a CSV file dork_results.csv with the following h
 ## Notes
 - Use the tool responsibly and adhere to the legal and ethical guidelines for web scraping and data usage.
 - Automated search queries can trigger CAPTCHA challenges or temporary blocks from search engines.
+
+
+## Example Usage
+### Custom Google Dorking
+To enter a custom Google Dorking query, use the custom command and enter your query when prompted:
+
+```bash
+python DorkSweep.py
+
+DorkSweep > custom
+
+Bonjour! You experienced G Dorker :)
+
+You should enter your query!
+
+[Query Samples]
+   intext:"kyle santos" site:linkedin.com   # chained query
+   inurl:admin   # Find admin pages
+   intitle:"index of"   # Find directory listings
+   inurl:login   # Find login pages
+   filetype:pdf   # Find PDF files
+   site:example.com   # Search within a specific site
+
+DorkSweep (Classic)> inurl:admin
+```
+
+
+### Automated Google Dorking
+To perform automated Google Dorking, use the auto command and follow the prompts:
+```bash
+python DorkSweep.py
+
+DorkSweep > auto
+
+You Have Selected Automated Google Dorking.
+
+You can type 'show' to display list of categories
+CATEGORIES FOR AUTOMATED DSWEEP:
+
+   DB | Database - sweeps databases such as mongoDB, mariaDB, Postgre
+   VW | Vulnerable_Websites - sweeps admin pages, SQL injection vulnerabilities, config files
+   NS | Network_and_Security_Information - sweeps server info, open ports and services, network devices
+   TI | Technical_Information - sweeps API keys, Encryption keys
+
+DorkSweep (Auto) > set DB
+
+Queries for DATABASE
+
+   [1] Search: mongoDB, Query: inurl:mongo
+   [2] Search: mariaDB, Query: inurl:maria
+   ...
+
+DorkSweep Auto(DATABASE) > use 1
+
+Query Selected: inurl:mongo
+
+DorkSweep Auto(DATABASE)> dsweep
+
+Results for dork: inurl:mongo
+
+Title: Example MongoDB
+Link: http://example.com/mongo
+...
+Total: 10
+```
