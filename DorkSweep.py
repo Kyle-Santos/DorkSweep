@@ -34,6 +34,7 @@ irrelevant = ["Settings", "Privacy", "Terms", "Travel",
               "Privacy and Cookies"]
 
 num_results = 20
+total_results = [0 for _ in range(4)]
 
 # COLORS
 RED = '\033[31m'
@@ -190,7 +191,7 @@ def extract_results(response):
                                 'link': href,
                                 # 'snippet': snippet,
                                 'domain': domain,
-                                'search_engine': response.url
+                                'search_query': response.url
                             })
                             seen_links.append(href)
                             position += 1
@@ -204,28 +205,37 @@ def google_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://www.google.com/search?q={query}&num={num_results}"
     response = requests.get(search_url, headers=headers)
-    return extract_results(response)
+    result = extract_results(response)
+    total_results[0] = (len(result))
+    return result
 
 def bing_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://www.bing.com/search?q={query}&count={num_results}"
     response = requests.get(search_url, headers=headers)
-    return extract_results(response)
+    result = extract_results(response)
+    total_results[1] = (len(result))
+    return result
 
 def duckduckgo_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://duckduckgo.com/html/?q={query}&num={num_results}"
     response = requests.get(search_url, headers=headers)
-    return extract_results(response)
+    result = extract_results(response)
+    total_results[2] = (len(result))
+    return result
 
 def yahoo_dork(query, num_results=num_results):
     headers = get_random_headers()
     search_url = f"https://search.yahoo.com/search?p={query}&n={num_results}"
     response = requests.get(search_url, headers=headers)
-    return extract_results(response)
+    result = extract_results(response)
+    total_results[3] = (len(result))
+    return result
 
 def aggregate_dork(query, num_results=num_results):
     results = []
+    global total_results
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [
@@ -255,7 +265,11 @@ def dork_sweep(dork):
             print(f"Link: {result['link']}")
         print()
         print("==============================\n")
-        print(f"Total: {len(results)}\n")
+        print(f"Total results from Google: {total_results[0]}\n")
+        print(f"Total results from Bing: {total_results[1]}\n")
+        print(f"Total results from DuckDuckGo: {total_results[2]}\n")
+        print(f"Total results from Yahoo: {total_results[3]}\n")
+        print(f"Total results: {len(results)}\n")
         print("==============================\n")
         time.sleep(2)  # To avoid getting blocked by Google
 
